@@ -57,7 +57,88 @@ Io:
     Io> ferrari type
     ==> Car
     
+    
+5. 方法
 
-      
+    Io:
+        
+        Io> method("Hello world ." println)  //==>创建方法
+        ==>method(
+            "Hello world ." println
+        )
+        Io> method type  //==>方法类型
+        ==> Block
+        Io> Car drive := method    //==>获取方法
+        ==>method(
+            "Hello world ." println
+        )
+        Io> Car drive   //==>调用方法
+        ==>Hello world 
+
+        Io> Car proto // ==>现实方法的所有方法，包括父对象
+        ==>
 
   
+6. 循环
+
+ loop(执行语句) ==> 无限循环
+ while(条件 ，执行语句)
+ for(计数器，初始值，终止值，可选增量，执行语句)
+ 
+ Io:
+ 
+     Io> for (i , 1 , 11, i println);"This one goes up to 11" println
+     1
+     2
+     3
+     4
+     5
+     6
+     7
+     8
+     9
+     10
+     11
+     This one goes up to 11
+     ==> This one goes up to 11
+     
+     Io> for(i, 1, 11, i = i + 2, i println)
+     1
+     4
+     7
+     10
+     ==> 10
+     
+     Io> for(i, 1, 11, 2, i println)
+     1
+     3
+     5
+     7
+     9
+     11
+     ==> 11
+     
+     Io> i := 1
+     Io> while (i <= 5, i println; i = i + 1);"this is one goes up to 5" println
+     1
+     2
+     3
+     4
+     5
+     this is one goes up to 5
+     ==> this is one goes up to 5
+     
+     
+7. 判断语句
+
+    if(conditon , true code , flase code)
+    
+    Io:
+    
+        Io> if(true , "true" , "flase" )
+        ==> true
+        
+        
+8. 消息
+
+   > 一个消息由三部分组成，发送者（sender），目标（target）和参数（arguments）；
