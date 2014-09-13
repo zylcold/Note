@@ -142,3 +142,46 @@ Io:
 8. 消息
 
    > 一个消息由三部分组成，发送者（sender），目标（target）和参数（arguments）；
+   
+   
+9. 并发
+
+   1. 协议
+   协议时并发的基础，提供了进程的自动挂起和恢复执行的机制。你可以把协议进程看作带有多个入口和出口的函数。每次调用yield都会自动挂起当前进程，并把控制权转到另一个进程中，通过在消息前加上@或@@，就可以异步出发消息。前者返回future后者返回nil，并在其自身中触发消息。
+   
+   Io:
+   
+        vizzini := Object clone
+        vizzini talk := method(
+            "Hello" println
+            yield
+            "Zhu" println
+        )   
+        fezzik := Object clone
+        fezzik rhyme := method(
+            "World" println
+            yield
+            "Yunlong" println
+        )
+        
+        vizzini @@talk; fezzik @@ rhyme
+        ==> "Hello"
+        ==> "World"
+        ==> "Zhu"
+        ==> "Yunlong"
+   2. actor
+   3. futrue
+   
+   
+   
+   
+优势：原型语言通常具有良好的可塑性。强大，现代的并发库。
+1. 占用空间很小。大多数应用在嵌入式系统中。
+2. 简单。
+3. 灵活。
+4. 并发。
+
+劣势：社区规模较小。
+1. 语法。
+2. 社区。
+3. 性能。
