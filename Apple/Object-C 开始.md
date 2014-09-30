@@ -11,9 +11,15 @@
 
         -(UIStatusBarStyle)preferredStatusBarStyle
         {
-            return UIStatusBarStyleLightContent;//返回一个高亮的状态栏
+            return UIStatusBarStyleLightContent;
+            //返回一个高亮的状态栏
         }
     
+        //隐藏状态栏
+        -(BOOL)prefersStatusBarHidden
+        {
+            return YES;
+        }
     
 ##使用系统动画
 * 第一种
@@ -40,6 +46,19 @@
             //... do something when end...
             
         }];
+        
+        
+        //动画延时执行 动画2秒，延迟2秒执行，执行速度为匀速
+        [UIView animateWithDuration:2 delay:2     
+            options:UIViewAnimationOptionCurveLinear animations:^{
+            
+            //...do something...
+        } completion:^(BOOL finished) {
+            
+            //... do something when end...
+        }];
+        
+        UIViewAnimationOptionCurveLinear //线性匀速
         
         
         
