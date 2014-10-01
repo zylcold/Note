@@ -1,4 +1,4 @@
-# Object-C 开始
+# objective-c 开始
 
 <!-- create time: 2014-09-25 23:19:38  -->
 
@@ -7,7 +7,7 @@
 
     UIStatusBarStyle 枚举类型
 
-    Object-c:
+    objective-c:
 
         -(UIStatusBarStyle)preferredStatusBarStyle
         {
@@ -24,7 +24,7 @@
 ##使用系统动画
 * 第一种
 
-    Object-c:
+   objective-c:
     
         [UIView beginAnimations:nil context:nil];//开始动画默认单次，0.2秒
         [UIView setAnimationDuration: 0.2]; // default = 0.2
@@ -35,7 +35,7 @@
     
 * 第二种
 
-    Object-c:
+    objective-c:
     
         [UIView animateWithDuration:0.2 animations:^{
         
@@ -64,7 +64,7 @@
         
 ##加载资源清单xxx.plist
 
-   Object-c:
+   objective-c:
    
           NSBundle *bundle = [NSBundle mainBundle]; //获取bundle
           NSString *path = 

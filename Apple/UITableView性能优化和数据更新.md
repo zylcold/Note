@@ -5,7 +5,7 @@
 ##性能优化的第一步，利用缓存池，减少UITablViewcell对象的创建。
 
 
-Object-C:
+objective-c:
 
     //数据源创建UITableViewCell方法
     -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:        
@@ -46,14 +46,14 @@ Object-C:
     
  值得注意的是tableview的代理方法中NSIndexPath数据的创建。
  
- Object-C:
+ objective-c:
  
          NSIndexPath * index = [NSIndexPath indexPathForRow:row 
                   inSection:section];
  
  刷新局部数据
  
- Object-C:
+ objective-c:
  
      [self.tableview reloadRowsAtIndexPaths:@[index]     
                          withRowAnimation:UITableViewRowAnimationFade];

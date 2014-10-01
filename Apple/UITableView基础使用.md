@@ -33,7 +33,7 @@
 ## UITableViewCell 常用的方法和属性
 初始化UITableViewCell
 
-Object-C:
+objective-c:
 
     UITableViewCell *cell = [[UITableViewCell     
         alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
