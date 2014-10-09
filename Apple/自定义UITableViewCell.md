@@ -160,3 +160,21 @@ objective-c:
     }
 
    
+   
+#### 防止UIButton中的图片拉伸变形。
+
+1. 将button的显示区域默认是填充整个button，首先利用contentEdgeInsets属性，将内容上下左右压缩，压缩的大小，应参照背景图片显示内容的边缘
+2. 在压缩内容的同时，应将button的frame进行相应的扩大，因为button的体积是根据未压缩的数据进行计算。如不添加易造成，显示内容在button的范围外，或者导致整个tableview变形。
+3. 利用iosAPI提供的方法，限制背景背景图片的拉伸区域，一般取其中纯色区域进行填充。
+  
+    objective-C:
+    
+        
+        CGFloat imageH = self.size.height * 0.5;
+        CGFloat imageW = self.size.width * 0.5;
+        UIImage *lastImage = [self resizableImageWithCapInsets:
+                UIEdgeInsetsMake(imageH, imageW, imageH, imageW)];
+                
+        //一般拉伸区域越小越好
+
+
