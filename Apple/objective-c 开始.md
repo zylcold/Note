@@ -2,7 +2,7 @@
 
 <!-- create time: 2014-09-25 23:19:38  -->
 
-# 更改状态栏的样式
+# 更改状态栏的样式(IOS7默认)
 * 重写此方法
 
     UIStatusBarStyle 枚举类型
@@ -149,4 +149,5 @@ objective-c:
 [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
 
 默认Mode 为NSDefaultRunLoopMode；
+
 
