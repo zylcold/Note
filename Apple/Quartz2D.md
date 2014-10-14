@@ -139,8 +139,110 @@
       
       设置颜色可以在其中通过Oc语法设置
       
+ 
+ 
+##图像的重绘（刷帧）
+   
+   调用重绘view对象的
+   
+       - (void)setNeedsDisplay; 刷新全部view
+       
+       - (void)setNeedsDisplayInRect:(CGRect)rect; 刷新区域为rect的view
+       
+  执行此方法时，系统回重新调用view的(void)drawRect:(CGRect)rect（切勿手动调用）
       
-##注意事项
+          因为系统在执行此方法时，会自动创建CGContextRef对象，我们通过        
+          UIGraphicsGetCurrentContext()就可以获取此对象，
+          而手动创建无法自动创建此对象。
+          
+  
+  
+##图形上下文栈
+
+    将当前的图形上下文对象保存到一个特定的栈中储存
+    CGContextSaveGState(CGContextRef c)
+    
+    //将栈中的图形上下文对象取出，替换当前的上下文对象
+    CGContextRestoreGState(CGContextRef c)
+    
+    
+    
+##创建图像路径
+
+   1. 首先需要调用CGContextBeginPath来标记Quartz 
+   2. CGMutablePathRef tpr = CGPathCreateMutable();创建路径对象（此非单例对象）
+   3. CGPathMoveToPoint／CGPathAdd../绘制路径（第二个参数CGAffineTransform（坐标变换）可为NULL）
+   4. CGContextAddPath(ctx,tpr);  将路径添加到图形上下文
+   5. CGPathRelease(tpr);释放tpr内存。
+   
+   
+###⚠ 注意事项 
+    使用含有“Create”或“Copy”的函数创建的对象，使用完后必须释放，否则将导致内存泄露
+
+    使用不含有“Create”或“Copy”的函数获取的对象，则不需要释放
+
+    如果retain了一个对象，不再使用时，需要将其release掉
+
+    可以使用Quartz 2D的函数来指定retain和release一个对象。
+    例如，如果创建了一个CGColorSpace对象，则使用函数CGColorSpaceRetain和
+        CGColorSpaceRelease来retain和release对象。
+
+    也可以使用Core Foundation的CFRetain和CFRelease。注意不能传递NULL值给这些函数 
+          
+
+
+
+##矩阵操作
+
+    矩阵操作，要在操作图像之前声明
+    
+    view之所以能够显示视图，是因为它的上面有layer,将来图形也是渲染到layer上面。
+        因此，旋转的时候是整个layer都旋转了
+    
+   1. 旋转CGContextRotateCTM(<#CGContextRef c#>, <#CGFloat angle#>)图形上下文，弧度
+   2. 缩放CGContextScaleCTM(<#CGContextRef c#>, <#CGFloat sx#>, <#CGFloat sy#>)
+       图形上下文，x方向的缩放比例，y方向上的缩放比例
+   3. 平移CGContextTranslateCTM(<#CGContextRef c#>, <#CGFloat tx#>, <#CGFloat ty#>)
+       （图形上下文，x方向的偏移量，y方向上的偏移量）
+
+
+##图像上下文
+
+   1. 开启一个基于位图的图形上下文
+   UIGraphicsBeginImageContextWithOptions(CGSize size, BOOL opaque, CGFloat scale)
+       //图像的范围，透明度，比例
+       
+   2. 获取一个图形上下文
+       CGContextRef ctx = UIGraphicsGetCurrentContext();
+       
+   3. 对图像的操作，添加水印／剪切等等
+   
+   4. 从上下文中取出图像 UIImage* UIGraphicsGetImageFromCurrentImageContext();
+   
+   5. 结束基于位图的图形上下文  UIGraphicsEndImageContext();
+
+###⚠注意事项
+
+   1. 不同于在drawRect:中，必须先手动创建一个图形上下文才能获取其对象，在使用结束后必须手动通过UIGraphicsEndImageContext();释放内存。
+   2. 取出图像的操作必须在释放内存之前进行，
+   3. 在其中的所有的操作，均在size范围内，超出不会显示。
+   
+   
+   
+   
+##屏幕截图
+
+        截图，就是获取view larer的图层。
+        
+   相关代码:
+   
+          - (void)renderInContext:(CGContextRef)ctx;
+          调用某个view的layer的renderInContext:方法即可
+          也需在图像的上下文中操作。
+
+   
+          
+##⚠注意事项
 
    1. 处理文字和图片，通常调用Oc封装好的draw..方法，因为Quart2D绘制的坐标为左下角，使用Quart2D
    需要进行相应的坐标转换。

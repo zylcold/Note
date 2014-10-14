@@ -151,3 +151,11 @@ objective-c:
 默认Mode 为NSDefaultRunLoopMode；
 
 
+
+##NO.3 CADisplayLink(快速执行，一秒60帧)
+
+   objective-c:
+   
+     CADisplayLink * link = [CADisplayLink displayLinkWithTarget:self selector:@selector(nexts)];  //创建link 循环调用self 的nexts方法
+    [link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+       //将link添加到mianRunLoop（主）消息循环，为默认的优先级
