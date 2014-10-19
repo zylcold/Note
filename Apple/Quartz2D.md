@@ -251,3 +251,36 @@
    4. Quartz会跟踪current point一般执行完一个相关函数后，current point都会相应的改变.但CGContextClosePath(ctx); 合并路径时，Quartz会找最后一个设置的起点的point。
    5. 
        
+       
+       
+       
+       
+##objective-c封装的一些Quartz2D方法
+
+
+* UIBezierPath 
+
+        A UIBezierPath object is a wrapper for a CGPathRef data type.
+        一个UIBezierPath对象是对CGPathRef数据的封装。
+   使用步骤:
+   
+    1. 创建一个UIBezierPath对象
+    2. 设置其对象的属性，线宽，线的样式等。
+    3. 设置起点
+    4. 添加线段等给其对象
+    5. 关闭对象－closePath方法，当结束一次绘画重新开始设置起点。
+    6. 重复3，4，5绘制新的图形。  
+    
+    objective-c:
+    
+        UIBezierPath *bezier = [UIBezierPath bezierPath]; //创建对象
+        [bezier moveToPoint:zhuPoint];   //设置起点
+        [bezier addLineToPoint:zhuPoint1];  //添加线段
+        [bezier closePath];            //关闭路径
+        [bezier moveToPoint:zhuPoint2];  //重新设置起点
+        .....                  //其他绘画操作
+        .....
+        [bezier stroke];/[path fill]; 提交路径
+
+
+    
