@@ -34,3 +34,39 @@
     其中image为保存对象
     NSError 为错误信息（成功为nil）
     contextInfo 保存时传入的参数
+    
+    
+ 
+##设置图片的拉伸区域
+    
+    - (UIImage *)resizableImageWithCapInsets:(UIEdgeInsets)capInsets NS_AVAILABLE_IOS(5_0)  //默认以填充
+    - (UIImage *)resizableImageWithCapInsets:(UIEdgeInsets)capInsets resizingMode:(UIImageResizingMode)resizingMode NS_AVAILABLE_IOS(6_0); 
+    
+    设置图片的拉伸区域。默认设置拉伸区域为中央的1个像素
+    e.g
+    
+    UIImage *image = [UIImage imageName:@"demo"];
+    UIImage *newImage = 
+    [image resizableImageWithCapInsets:UIEdgeInsetsMake(image.size.height * 0.5, image.size.width * 0.5, image.size.height * 0.5, image.size.width * 0.5)]
+    
+
+    UIImageResizingMode{
+        UIImageResizingModeTile, 填充
+        UIImageResizingModeStretch, 拉伸
+    }
+
+##设置图片是否按照系统样式
+
+    - (UIImage *)imageWithRenderingMode:(UIImageRenderingMode)renderingMode NS_AVAILABLE_IOS(7_0); IOS7以上使用
+    
+     UIImageRenderingModeAutomatic,
+     // Use the default rendering mode for the context where the image is used
+     //使用原始样式，当有图片被使用时
+    UIImageRenderingModeAlwaysOriginal,     
+    // Always draw the original image, without treating it as a template
+    //总是使用原始样式
+    UIImageRenderingModeAlwaysTemplate,  
+    // Always draw the image as a template image, ignoring its color information
+    //修改为系统的默认样式
+
+

@@ -44,7 +44,7 @@
 
 7. 边框宽度 @property CGFloat borderWidth;
 
-8. 圆角半径 @property CGColorRef borderColor;
+8. 圆角半径 CGFloat cornerRadius;
 
 9. 内容(比如设置为图片CGImageRef) @property(retain) id contents;
 
