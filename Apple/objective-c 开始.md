@@ -100,17 +100,4 @@
       
           
           
-#UITextField常用属性
-
-    field.leftView = imageView;   //设着左右显示view，必须设着显示模式。
-    field.leftViewMode = UITextFieldViewModeAlways;
-    field.placeholder = @"demo";  //设置提示文字
-    //field.attributedPlaceholder = disc; //或通过属性字典详细设置文字
-    self.clearButtonMode = UITextFieldViewModeWhileEditing;
-    //设置输入框的清空按钮
-    
-    //具体 UITextInputTraits.h
-    self.returnKeyType = UIReturnKeySearch;//设置键盘返回键的样式
-    self.enablesReturnKeyAutomatically = YES; //当输入框中有文字时，才能点击
-    
     
