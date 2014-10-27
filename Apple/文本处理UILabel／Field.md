@@ -2,7 +2,7 @@
 
 <!-- create time: 2014-10-25 17:26:21  -->
 
-#UITextField常用属性
+##UITextField常用属性
 
     field.leftView = imageView;   //设着左右显示view，必须设着显示模式。
     field.leftViewMode = UITextFieldViewModeAlways;
@@ -20,3 +20,13 @@
     autocorrectionType：可以设置是否启动自动提醒更正功能。
     placeholder：设置默认的文本显示
     returnKeyType:设置键盘完成的按钮
+    
+    
+##截取一个指定范围的文字
+
+    //"<a href="http://weibo.com" rel="nofollow">新浪微博</a>"
+    
+    int startLoc = (int)[source rangeOfString:@">"].location + 1;
+    int lenght = (int)[source rangeOfString:@"</"].location - startLoc;
+    
+    source = [NSString stringWithFormat:@"来自%@",[source substringWithRange:NSMakeRange(startLoc, lenght)]];
