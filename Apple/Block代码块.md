@@ -81,11 +81,11 @@
    
    如果代码块中必须使用这些属性／对象，应该在block前，声明一个弱指针，替代那些属性
    
-       __weak ZhuBlock *zhu;
-       __unsafe_unretained ZhuBlock *zhu2;
-       __weak typeof(self) zhu3;       
-       
-       利用zhu， zhu2， zhu3 替代self对象
+           __weak ZhuBlock *zhu;
+           __unsafe_unretained ZhuBlock *zhu2;
+           __weak typeof(self) zhu3;       
+           
+           利用zhu， zhu2， zhu3 替代self对象
     
     
    如果self对象持有操作对象的引用，同时操作对象当中又直接访问了self时，才会造成循环引用
