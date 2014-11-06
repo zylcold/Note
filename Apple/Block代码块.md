@@ -92,6 +92,8 @@
 
 单纯在操作对象中使用self不会造成循环引用
 
+仅当self对象持有block对象的引用，而block当中又直接访问了self时，才会造成循环引用，只是在block中使用self的话是没有关系的。而且使用弱指针则对象在block中为nil 
+
     注意：此时不能使用(weakSelf)
 
    
