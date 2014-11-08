@@ -145,9 +145,15 @@
       CountryCode  缩写国家名
       Name   全名
       State   州
-      FormattedAddressLines
+      FormattedAddressLines  格式化后的地址
       Country  国家
       City  城市
+      
+      ->http://blog.csdn.net/lvxiangan/article/details/26015147
+      SubThoroughfare //具体地址
+      Street // 街道完整名称
+      上面的这个字典是可以直接转化为联系人的字典的，
+              通过这个ABCreateStringWithAddressDictionary属性。
       
       @property (readonly, copy) NSDictionary *addressDictionary;
 
