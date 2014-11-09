@@ -70,3 +70,26 @@
     //修改为系统的默认样式
 
 
+
+##将图片裁剪为圆形Quartz2D（最好创建Imgae扩展类）
+
+    @implementation UIImage (Cut)
+    - (UIImage *)cutArc {
+        //创建一个图形上下文
+        UIGraphicsBeginImageContextWithOptions(CGSizeMake(100, 100), NO, 0.0);
+        //获得上下文对象
+        CGContextRef ctx = UIGraphicsGetCurrentContext();
+        //在上下文中添加一个圆形
+        CGContextAddEllipseInRect(ctx, CGRectMake(0, 0, 100, 100));
+        //设置圆外的全部裁掉
+        CGContextClip(ctx);
+        //将要裁剪图片添加到上下文中
+        [self drawInRect:CGRectMake(0,0, 100, 100)];
+        //获取图形上下文
+        UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+        //关闭图形上下文
+        UIGraphicsEndImageContext();
+        return newImage;
+    }
+    @end
+
