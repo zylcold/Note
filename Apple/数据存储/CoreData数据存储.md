@@ -2,6 +2,8 @@
 
 <!-- create time: 2014-11-10 22:52:38  -->
 
+[文档翻译](http://blog.jobbole.com/51508/)
+
 参考[任海丽的IOS之分析网易新闻存储数据](http://blog.csdn.net/rhljiayou/article/details/18037729)
 
     1、NSManagedObjectContext
