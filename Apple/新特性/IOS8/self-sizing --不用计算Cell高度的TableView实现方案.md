@@ -18,5 +18,7 @@
         self.tableView.estimatedRowHeight = 44.0f;
         self.tableView.rowHeight = UITableViewAutomaticDimension;
     }
+    
 
     搞定，不用实现任何计算Cell高度的方法，已经好了。
+    
