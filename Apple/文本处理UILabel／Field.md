@@ -21,6 +21,11 @@
     placeholder：设置默认的文本显示
     returnKeyType:设置键盘完成的按钮
     
+##设置当前光标位置
+
+    self.textEditView.text = @"##"; //设置文字
+    self.textEditView.selectedRange = NSMakeRange(1, 0); 
+    //位置从0开始，范围（大于0表示选中某段文字）
     
 ##截取一个指定范围的文字
 
@@ -30,3 +35,5 @@
     int lenght = (int)[source rangeOfString:@"</"].location - startLoc;
     
     source = [NSString stringWithFormat:@"来自%@",[source substringWithRange:NSMakeRange(startLoc, lenght)]];
+    
+    
