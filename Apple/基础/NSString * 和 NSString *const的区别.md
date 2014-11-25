@@ -13,7 +13,7 @@
     
     Demo.h-－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
     #import <Foundation/Foundation.h>
-    extern NSString *const Demo1; //extern全局声明，默认就为extern
+    extern NSString *const Demo1; //extern全局声明
     extern NSString *const Demo2;
     @interface Demo : NSObject
     @end

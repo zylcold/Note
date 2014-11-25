@@ -11,3 +11,7 @@
     更进一步说，Self Sizing Cell的引入是促进Dynamic Type使用的办法，它可以节省大量写代码调整行高的时间。如果单元格可以自动调整了，那么使用Dynamic Type就很显而易见了。
     
     你只需要从尺寸固定的自定义字体中将字体更改为文本类型（比如标题和内容主体）首选的字体。也就是说当你运行app时，它会适应文本大小的改变。
+
+    获取字体改变的通知 UIContentSizeCategoryDidChangeNotification
+    
+    当字体改变时，可以方法刷新界面
