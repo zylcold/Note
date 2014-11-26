@@ -3,6 +3,8 @@
 <!-- create time: 2014-11-24 21:29:56  -->
 
 
+##判断设备版本／判断编译器的版本
+
     #define IOSDevice [[[UIDevice currentDevice] systemVersion] floatValue] //手机版本
     - (CGSize)sizeWithRange:(CGSize)range wihtFont:(UIFont *)font
         {
@@ -23,3 +25,13 @@
             return size;
         }
 
+##断言
+
+    NSAssert(condition, desc, ...);
+    NSAssert(i > 10, @"error"); 如果i < 10 ,打印 error警告
+    
+    
+    STAssertNotNil(a1, description, ...);
+    STAssertEquals(a1, a2, description, ...);
+    STAssertTrue(expr, description, ...);
+    STAssertEqualObjects(a1, a2, description, ...);
