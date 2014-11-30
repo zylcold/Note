@@ -32,6 +32,12 @@
     
     
     STAssertNotNil(a1, description, ...);
-    STAssertEquals(a1, a2, description, ...);
     STAssertTrue(expr, description, ...);
-    STAssertEqualObjects(a1, a2, description, ...);
+    STAssertEquals(a1, a2, description, ...);  比较指针
+    STAssertEqualObjects(a1, a2, description, ...); 比较内容
+
+##判断ARC，MRC
+
+    #if ! __has_feature(objc_arc)
+	[alert release];
+    #endif
