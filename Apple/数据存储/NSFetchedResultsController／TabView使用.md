@@ -47,6 +47,11 @@ objetive-c:
     NSManagedObjectContext对象创建在AppDelegate的好处，
     可以方便在应用的各个状态中调用[context save:&error];方法保护数据不被丢失
     通过self.window.rootViewController获取到目标控制器，进而将NSManagedObjectContext传出
+    
+    或者
+    //获取应用程序委托的引用，再用引用获取创建好的托管对象上下文。  
+    MyAppDelegate *delegate = (MyAppDelegate *)[[UIApplication sharedApplication]delegate];  
+    NSManagedObjectContext *context = [delegate managedObjectContext];
         
 ###在目标控制器中重写NSFetchedResultsController对象的get方法，设置代理
 

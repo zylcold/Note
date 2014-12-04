@@ -35,6 +35,8 @@
     STAssertTrue(expr, description, ...);
     STAssertEquals(a1, a2, description, ...);  比较指针
     STAssertEqualObjects(a1, a2, description, ...); 比较内容
+    
+    NSParameterAssert(block != nil); 
 
 ##判断ARC，MRC
 

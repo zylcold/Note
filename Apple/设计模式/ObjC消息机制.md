@@ -72,3 +72,32 @@ e.g 动态创建方法
     
     forwardInvocation:方法就像一个不能识别的消息的分发中心，将这些消息转发给不同接收对象。或者它也可以象一个运输站将所有的消息都发送给同一个接收对象。它可以将一个消息翻译成另外一个消息，或者简单的"吃掉“某些消息，因此没有响应也没有错误。forwardInvocation:方法也可以对不同的消息提供同样的响应，这一切都取决于方法的具体实现。该方法所提供是将不同的对象链接到消息链的能力。
     注意： forwardInvocation:方法只有在消息接收对象中无法正常响应消息时才会被调用。 所以，如果我们希望一个对象将negotiate消息转发给其它对象，则这个对象不能有negotiate方法，也不能在动态方法决议中为之提供实现。否则，forwardInvocation:将不可能会被调用。
+
+
+##objc_setAssociatedObject //设置关联
+
+    
+    swift
+    func objc_setAssociatedObject(_ object: AnyObject!,
+                                     _ key: UnsafePointer<Void>,
+                                   _ value: AnyObject!,
+                                  _ policy: objc_AssociationPolicy)
+   
+    OBJECTIVE-C
+    void objc_setAssociatedObject ( id object,    //关联对象
+                                    const void *key,   //联合值取地址
+                                    id value,   //关联值
+                                    objc_AssociationPolicy policy ); //关联策略
+    
+    Sets an associated value for a given object using a given key and association policy.
+    设置一个联合值将key与对象通过一种方式关联起来。
+    
+    
+
+##objc_getAssociatedObject  //取出关联
+
+    SWIFT
+    func objc_getAssociatedObject(_ object: AnyObject!,
+                                     _ key: UnsafePointer<Void>) -> AnyObject!
+    OBJECTIVE-C
+    id objc_getAssociatedObject ( id object, const void *key );  //关联对象 //取地址
