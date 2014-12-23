@@ -67,6 +67,9 @@ e.g 动态创建方法
 [酷酷的冥王星的技术专栏 Objective C运行时（runtime）技术的几个要点总结](http://www.cnblogs.com/gugupluto/p/3159733.html#aaaaaaaaaaaaaaaaaaa)
 
 [在object-c运行时替换私有类的方法](http://blog.csdn.net/cyforce/article/details/8491033)
+
+[Objective-C的动态特性](http://limboy.me/ios/2013/08/03/dynamic-tips-and-tricks-with-objective-c.html)
+
     通常，给一个对象发送它不能处理的消息会得到出错提示，然而，Objective-C运行时系统在抛出错误之前，会给消息接收对象发送一条特别的消息forwardInvocation 来通知该对象，该消息的唯一参数是个NSInvocation类型的对象——该对象封装了原始的消息和消息的参数。
     我们可以实现forwardInvocation:方法来对不能处理的消息做一些默认的处理，也可以将消息转发给其他对象来处理，而不抛出错误。
     

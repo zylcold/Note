@@ -30,7 +30,7 @@
     NSAssert(condition, desc, ...);
     NSAssert(i > 10, @"error"); 如果i < 10 ,打印 error警告
     
-    
+    //无法使用
     STAssertNotNil(a1, description, ...);
     STAssertTrue(expr, description, ...);
     STAssertEquals(a1, a2, description, ...);  比较指针
@@ -43,3 +43,16 @@
     #if ! __has_feature(objc_arc)
 	[alert release];
     #endif
+
+##废弃方法或者属性
+
+    .h 文件中
+    
+    - (id)demoMethod();
+    - (id)deprecatedMethod() __deprecated_msg("Method deprecated. Use `demoMethod`");
+
+##忽略警告
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wundeclared-selector" 
+        objc_msgSend(demoArray, @selector(sayHello:), @"nihao");
+    #pragma clang diagnostic pop
