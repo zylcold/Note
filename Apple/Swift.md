@@ -6,6 +6,10 @@
     它建立在最好的C和Objective-C 语言之上,并且没有 C 语言的兼容性限制。
     Swift 采用安全的编程模式,增加了现代功能使编程更容易、更灵活、更有趣。
 
+##Swift 中与Objective-C 对应的操作
+
+### #pragma mark 可以 通过 //MARK: 或 //TODO 或 //FIXME 替代使用
+
 ##常量变量(Constants and Variables)
     
 ####常量 
