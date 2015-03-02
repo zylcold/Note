@@ -45,3 +45,7 @@
 ###利用 lipo 合并静态库文件
     lipo -create /Users/amarishuyi/Desktop/map/Release-iphoneos/libbaidumapapi.a/Users/amarishuyi/Desktop/map/Release-iphonesimulator/libbaidumapapi.a -output/Users/amarishuyi/Desktop/map.a
     
+###终端执行可执行目标代码
+
+       ./a.out "args1" "args2"
+       执行当前文件夹下a.out文件，并在main中传入2个参数
