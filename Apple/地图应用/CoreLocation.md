@@ -188,4 +188,22 @@
             
     
     
-      
+##ios8.0下CLLocationManager定位服务
+[](http://blog.csdn.net/nogodoss/article/details/42268295)
+
+最近在ios8.0使用CLLocationManager定位服务,发现老不能定位,查看设置菜单中的项也是处于未知状态.想起之前都有一个弹出框提示用户是否允许定位,这次一直没有出现了.原来ios8.0下的定位服务需要申请授权了. 具体代码如下:
+
+
+     if ([CLLocationManager locationServicesEnabled]) {
+          self.locationManager = [[CLLocationManager alloc] init];
+          _locationManager.delegate = self;
+          _locationManager.desiredAccuracy = kCLLocationAccuracyBest; //控制定位精度,越高耗电量越大。
+          _locationManager.distanceFilter = 100; //控制定位服务更新频率。单位是“米”
+          [_locationManager startUpdatingLocation];
+       //在ios 8.0下要授权（先开始定位，再请求权限）
+         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+             [_locationManager requestWhenInUseAuthorization];  //调用了这句,就会弹出允许框了.
+         }
+    }
+
+###注意 在Info.plist文件还要加上NSLocationWhenInUseUsageDescription这个key,Value可以为空
