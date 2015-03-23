@@ -50,9 +50,23 @@
     
     - (id)demoMethod();
     - (id)deprecatedMethod() __deprecated_msg("Method deprecated. Use `demoMethod`");
+    或者推荐
+    - (id)deprecatedMethod() __attribute__((unavailable("Method deprecated. Use `demoMethod`")));
 
 ##忽略警告
-    #pragma clang diagnostic push
+    
+	//忽略未定义方法
+	#pragma clang diagnostic push
     #pragma clang diagnostic ignored "-Wundeclared-selector" 
         objc_msgSend(demoArray, @selector(sayHello:), @"nihao");
     #pragma clang diagnostic pop
+	
+	//忽略可能造成的内存泄漏
+	#pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    	[[self firstAvailableUIViewController] performSelector:selector withObject:self withObject:biggestView.image];
+    #pragma clang diagnostic pop
+
+	//隐式类型转换造成的数据丢失
+	
+	-Wshorten-64-to-32
