@@ -93,3 +93,22 @@
     }
     @end
 
+##播放Gif文件
+
+		NSURL *url = [[NSBundle mainBundle] URLForResource:name withExtension:nil];
+	    CFURLRef urlRef = (__bridge CFURLRef)url;
+	    CGImageSourceRef csf = CGImageSourceCreateWithURL(urlRef, NULL);
+	    size_t const count = CGImageSourceGetCount(csf);
+	    UIImage *images[count];
+	    CGImageRef imagesRef[count];
+	    for(size_t i = 0; i < count; ++i) {
+	        imagesRef[i] = CGImageSourceCreateImageAtIndex(csf, i, NULL);
+	        UIImage *image = [UIImage imageWithCGImage:imagesRef[i]];
+	        images[i] = image;
+	        CFRelease(imagesRef[i]);
+	    }
+	    NSArray *imageArray = [NSArray arrayWithObjects:images count:count];
+		UIImage *const animation = [UIImage animatedImageWithImages:imageArray duration:1];
+	    [_gifView setImage:animation];
+	    CFRelease(urlRef);
+	    CFRelease(csf);
