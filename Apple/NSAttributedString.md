@@ -261,3 +261,8 @@
 		    [attrStr03 insertAttributedString: attrStr13 atIndex: 8];
     
 		    _label03.attributedText = attrStr03;
+			
+			
+			
+ -----| ---- |----
+ nihao| nihao| nihao
