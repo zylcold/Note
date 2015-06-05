@@ -1,0 +1,29 @@
+##iOS中3种正则表达式的使用与比较
+1. 利用NSPredicate（谓词）匹配
+
+	NSString *email = @"zylcold@163.com";
+	NSString *regex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELE MATCHES %@", regex];
+	BOOL isValid = [predicate evaluateWithObject:email];
+[谓词语法](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/Predicates/Articles/pSyntax.html#//apple_ref/doc/uid/TP40001795-SW1)
+
+2. 利用NSString自带的查询方法
+
+	NSString *searchText = @"//Do any additional setup affter";
+	NSSRange range = [searchText rangeOfString:@"(?:[^,]*\\." options:NSRegularExpressionSearch];
+	if(range.location != NSNotFound) {
+		NSLog("%@", [searchText substringWithRange:range]);
+	}
+	
+	options中设定NSRegularExpressionSearch表示利用正则表达式匹配，返回第一个匹配结果的位置
+	
+3. 使用正则表达式类
+
+	NSString *searchText = @"// Do any additional setup after loading the view, typically from a nib.";    
+    NSError *error = NULL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(?:[^,])*\\." options:NSRegularExpressionCaseInsensitive error:&error];
+    NSTextCheckingResult *result = [regex firstMatchInString:searchText options:0 range:NSMakeRange(0, [searchText length])];
+    if (result) {
+        NSLog(@"%@\n", [searchText substringWithRange:result.range]);
+    }
+	
