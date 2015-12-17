@@ -1,5 +1,7 @@
 #3D Touch相关
 
+##Checking for 3D Touch Availability  //检查3D Touch 是否可用
+
 ##Home Screen Quick Actions
 ###1. 配置plist文件
 
@@ -69,16 +71,16 @@
 		
 		-->3D touch
 		
-		-->执行performActionForShortcutItem
-			
-			处理事件
-			
 		-->执行didFinishLaunchingWithOptions
 		
 			获取UIApplicationShortcutItem对象，并保存在总代理中，程序生命周期中一直存在
 			
-			返回false  //程序启动时3D touch不再执行performActionForShortcutItem
+			返回false  //程序启动后再次3D touch不再执行performActionForShortcutItem
+		
+		-->执行performActionForShortcutItem
 			
+			处理事件
+				
 		-->程序进入后台
 		
 		-->3D touch 进入前台
@@ -109,5 +111,13 @@
             application.shortcutItems = [shortcut3, shortcut4]
         }
 	
+##UIKit Peek and Pop  View按压操作
 
+
+	The descriptions for the registerForPreviewingWithDelegate:sourceView: and unregisterForPreviewingWithContext: methods in UIViewController Class Reference
+	UIViewControllerPreviewing Protocol Reference, which describes the interface adopted by the context object for a 3D Touch-enabled view controller
+	UIViewControllerPreviewingDelegate Protocol Reference, which describes the interface for providing a preview view controller (peek, in user terminology) in response to a user force touch, and for providing a commit view controller (pop, in user terminology) in response to a deeper press on the preview
+	UIPreviewAction Class Reference, which describes a peek quick action
+	UIPreviewActionGroup Class Reference, which describes submenu-like grouping of peek quick actions
+	UIPreviewActionItem Protocol Reference, which describes the interface adopted by peek quick actions and groups
 	
