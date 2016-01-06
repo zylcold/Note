@@ -9,6 +9,8 @@
 #import "CTDisplayView.h"
 #import "CoreTextData.h"
 #import "CoreTextImageData.h"
+#import "CoreTextUtils.h"
+#import "CoreTextLinkData.h"
 @import CoreText;
 @interface CTDisplayView ()<UIGestureRecognizerDelegate>
 
@@ -44,8 +46,14 @@
         CGRect rect = CGRectMake(imagePosition.x, imagePosition.y, imageRect.size.width, imageRect.size.height);
         if(CGRectContainsPoint(rect, point)) {
             NSLog(@"bingo");
-            break;
+            return;
         }
+    }
+    
+    CoreTextLinkData *linkData = [CoreTextUtils touchLinkInView:self atPoint:point data:self.data];
+    if(linkData) {
+        NSLog(@"%@", linkData.url);
+        return;
     }
 }
 
@@ -62,7 +70,7 @@
     if(self.data) {
         CTFrameDraw(self.data.ctFrame, context);
         [self.data.imageArray enumerateObjectsUsingBlock:^(CoreTextImageData *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [[UIImage imageNamed:obj.name] drawInRect:obj.imagePostion];
+            CGContextDrawImage(context, obj.imagePostion, [UIImage imageNamed:obj.name].CGImage);
         }];
     }
 }

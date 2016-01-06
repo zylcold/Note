@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		520921D01C23B95C00AC378C /* CoreTextLinkData.m in Sources */ = {isa = PBXBuildFile; fileRef = 520921CF1C23B95C00AC378C /* CoreTextLinkData.m */; };
+		520921D31C23BDD900AC378C /* DemoDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 520921D21C23BDD900AC378C /* DemoDemo.m */; };
+		520921D61C23DCA200AC378C /* CoreTextUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 520921D51C23DCA200AC378C /* CoreTextUtils.m */; };
 		520B0C901C21693800B70CB5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 520B0C8F1C21693800B70CB5 /* main.m */; };
 		520B0C931C21693800B70CB5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 520B0C921C21693800B70CB5 /* AppDelegate.m */; };
 		520B0C961C21693800B70CB5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 520B0C951C21693800B70CB5 /* ViewController.m */; };
@@ -23,6 +26,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		520921CE1C23B95C00AC378C /* CoreTextLinkData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreTextLinkData.h; sourceTree = "<group>"; };
+		520921CF1C23B95C00AC378C /* CoreTextLinkData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreTextLinkData.m; sourceTree = "<group>"; };
+		520921D11C23BDD900AC378C /* DemoDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoDemo.h; sourceTree = "<group>"; };
+		520921D21C23BDD900AC378C /* DemoDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoDemo.m; sourceTree = "<group>"; };
+		520921D41C23DCA200AC378C /* CoreTextUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreTextUtils.h; sourceTree = "<group>"; };
+		520921D51C23DCA200AC378C /* CoreTextUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreTextUtils.m; sourceTree = "<group>"; };
 		520B0C8B1C21693800B70CB5 /* CoreTextDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreTextDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		520B0C8F1C21693800B70CB5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		520B0C911C21693800B70CB5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -93,11 +102,17 @@
 				520B0C921C21693800B70CB5 /* AppDelegate.m */,
 				520B0C941C21693800B70CB5 /* ViewController.h */,
 				520B0C951C21693800B70CB5 /* ViewController.m */,
+				520921D41C23DCA200AC378C /* CoreTextUtils.h */,
+				520921D51C23DCA200AC378C /* CoreTextUtils.m */,
 				520B0C971C21693800B70CB5 /* Main.storyboard */,
 				520B0C9A1C21693800B70CB5 /* Assets.xcassets */,
 				520B0C9C1C21693800B70CB5 /* LaunchScreen.storyboard */,
 				520B0C9F1C21693800B70CB5 /* Info.plist */,
 				520B0C8E1C21693800B70CB5 /* Supporting Files */,
+				520921CE1C23B95C00AC378C /* CoreTextLinkData.h */,
+				520921CF1C23B95C00AC378C /* CoreTextLinkData.m */,
+				520921D11C23BDD900AC378C /* DemoDemo.h */,
+				520921D21C23BDD900AC378C /* DemoDemo.m */,
 			);
 			path = CoreTextDemo;
 			sourceTree = "<group>";
@@ -184,11 +199,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				520B0C961C21693800B70CB5 /* ViewController.m in Sources */,
+				520921D31C23BDD900AC378C /* DemoDemo.m in Sources */,
 				52345E321C22B751007EE564 /* CoreTextImageData.m in Sources */,
+				520921D01C23B95C00AC378C /* CoreTextLinkData.m in Sources */,
 				520B0C931C21693800B70CB5 /* AppDelegate.m in Sources */,
 				520B0CA71C21695C00B70CB5 /* CTDisplayView.m in Sources */,
 				52345E2D1C22884F007EE564 /* CoreTextData.m in Sources */,
 				52345E271C22870A007EE564 /* CTFrameParserConfig.m in Sources */,
+				520921D61C23DCA200AC378C /* CoreTextUtils.m in Sources */,
 				520B0C901C21693800B70CB5 /* main.m in Sources */,
 				52345E2A1C2287BE007EE564 /* CTFrameParser.m in Sources */,
 			);

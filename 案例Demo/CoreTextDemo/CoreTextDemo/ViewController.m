@@ -11,8 +11,13 @@
 #import "CTFrameParserConfig.h"
 #import "CoreTextData.h"
 #import "CTFrameParser.h"
+#import "DemoDemo.h"
 @interface ViewController ()
 @property(nonatomic, weak) IBOutlet CTDisplayView *ctView;
+
+@property(nonatomic, strong) NSArray *demoArray;
+
+@property(nonatomic, strong) NSArray *origArray;
 @end
 
 @implementation ViewController
@@ -67,8 +72,6 @@
         }
     }];
     self.ctView.backgroundColor = [UIColor whiteColor];
-
-    
 }
 
 - (IBAction)buttonClick:(id)sender

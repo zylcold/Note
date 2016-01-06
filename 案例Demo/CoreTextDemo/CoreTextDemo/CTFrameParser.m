@@ -10,6 +10,7 @@
 #import "CoreTextData.h"
 #import "CTFrameParserConfig.h"
 #import "CoreTextImageData.h"
+#import "CoreTextLinkData.h"
 @implementation CTFrameParser
 + (NSDictionary *)attributesWithConfig:(CTFrameParserConfig *)config
 {
@@ -123,6 +124,13 @@
     return [[NSAttributedString alloc] initWithString:content attributes:attributes];
 }
 
++ (NSAttributedString *)parseAttributedUrlContentFromNSDictionary:(NSDictionary *)dict config:(CTFrameParserConfig *)config
+{
+    NSMutableAttributedString *attribute = [self parseAttributedContentFromNSDictionary:dict config:config].mutableCopy;
+    [attribute addAttribute: NSUnderlineStyleAttributeName value:@(NSUnderlineStyleSingle) range:NSMakeRange(0, attribute.string.length)];
+    return attribute;
+}
+
 + (NSAttributedString *)parseImageDataFromNSDictionary:(NSDictionary *)dict config:(CTFrameParserConfig *)config
 {
     CTRunDelegateCallbacks callbacks;
@@ -153,7 +161,7 @@ static CGFloat widthCallback(void *ref) {
 
 
 
-+ (NSAttributedString *)loadTemplateFile:(NSString *)path config:(CTFrameParserConfig *)config imageArray:(NSMutableArray *)imageArray
++ (NSAttributedString *)loadTemplateFile:(NSString *)path config:(CTFrameParserConfig *)config imageArray:(NSMutableArray *)imageArray linkArray:(NSMutableArray *)linkArray
 {
     NSData *data = [NSData dataWithContentsOfFile:path];
     NSMutableAttributedString *result = [[NSMutableAttributedString alloc] init];
@@ -172,6 +180,18 @@ static CGFloat widthCallback(void *ref) {
                     [imageArray addObject:imageData];
                     NSAttributedString *as = [self parseImageDataFromNSDictionary:dict config:config];
                     [result appendAttributedString:as];
+                }else if([type isEqualToString:@"link"]) {
+                    NSUInteger startPos = result.length;
+                    NSAttributedString *as = [self parseAttributedUrlContentFromNSDictionary:dict config:config];
+                    [result appendAttributedString:as];
+                    //创建LinkData
+                    NSUInteger length = result.length - startPos;
+                    NSRange linkRange = NSMakeRange(startPos, length);
+                    CoreTextLinkData *linkData = [[CoreTextLinkData alloc] init];
+                    linkData.range = linkRange;
+                    linkData.title = dict[@"content"];
+                    linkData.url = dict[@"url"];
+                    [linkArray addObject:linkData];
                 }
             }
         }
@@ -179,31 +199,14 @@ static CGFloat widthCallback(void *ref) {
     return result;
 }
 
-//+ (NSAttributedString *)loadTemplateFile:(NSString *)path config:(CTFrameParserConfig *)config
-//{
-//    NSData *data = [NSData dataWithContentsOfFile:path];
-//    NSMutableAttributedString *result = [[NSMutableAttributedString alloc] init];
-//    if(data) {
-//        NSArray *array = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-//        if([array isKindOfClass:[NSArray class]]) {
-//            for (NSDictionary *dict in array) {
-//                NSString *type = dict[@"type"];
-//                if([type isEqualToString:@"txt"]) {
-//                    NSAttributedString *as = [self parseAttributedContentFromNSDictionary:dict config:config];
-//                    [result appendAttributedString:as];
-//                }
-//            }
-//        }
-//    }
-//    return result;
-//}
-
 + (CoreTextData *)parseTemplateFile:(NSString *)path config:(CTFrameParserConfig *)config
 {
     NSMutableArray *imageArray = [NSMutableArray array];
-    NSAttributedString *content = [self loadTemplateFile:path config:config imageArray:imageArray];
+    NSMutableArray *urlArray = [NSMutableArray array];
+    NSAttributedString *content = [self loadTemplateFile:path config:config imageArray:imageArray linkArray:urlArray];
     CoreTextData *data = [self parseAttributedContent:content config:config];
     data.imageArray = imageArray;
+    data.linkArray = urlArray;
     return data;
 }
 
