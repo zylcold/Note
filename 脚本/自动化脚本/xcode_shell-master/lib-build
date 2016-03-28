@@ -1,0 +1,199 @@
+#!/bin/bash
+
+#--------------------------------------------
+# 功能：编译static lib xcode项目
+# 使用说明：
+#		编译project
+#			lib-build <project directory> [-c <project configuration>] [-o <lib output directory>] [-t <target name>] [-n]
+#		编译workspace
+#			lib-build  <workspace directory> -w -s <schemeName> [-c <project configuration>] [-n]
+#
+# 参数说明：-c NAME				工程的configuration,默认为Release。
+#			-o PATH				生成的lib文件输出的文件夹（必须为已存在的文件路径）默认为工程根路径下的”build/lib-build“文件夹中
+#			-t NAME				需要编译的target的名称
+#			-w					编译workspace	
+#			-s NAME				对应workspace下需要编译的scheme
+#			-n					编译前是否先clean工程
+# 作者：zeb
+# E-mail:zebbey@gmail.com
+# 创建日期：2014/10/14
+
+
+if [ $# -lt 1 ];then
+	echo "Error! Should enter the root directory of xcode project after the lib-build command."
+	exit 2
+fi
+
+if [ ! -d $1 ];then
+	echo "Error! The first param must be a directory."
+	exit 2
+fi
+
+#工程绝对路径
+cd $1
+project_path=$(pwd)
+
+#编译的configuration，默认为Release
+build_config=Release
+
+param_pattern=":nc:o:t:ws:"
+OPTIND=2
+while getopts $param_pattern optname
+  do
+    case "$optname" in
+	  "n")        
+		should_clean=y		
+        ;;
+      "c")        
+		tmp_optind=$OPTIND
+		tmp_optname=$optname
+		tmp_optarg=$OPTARG
+		OPTIND=$OPTIND-1
+		if getopts $param_pattern optname ;then
+			echo  "Error argument value for option $tmp_optname"
+			exit 2
+		fi
+		OPTIND=$tmp_optind
+
+		build_config=$tmp_optarg
+		
+        ;;
+      "o")
+		tmp_optind=$OPTIND
+		tmp_optname=$optname
+		tmp_optarg=$OPTARG
+
+		OPTIND=$OPTIND-1
+		if getopts $param_pattern optname ;then
+			echo  "Error argument value for option $tmp_optname"
+			exit 2
+		fi
+		OPTIND=$tmp_optind
+
+		cd $tmp_optarg
+		output_path=$(pwd)
+		cd ${project_path}
+
+		if [ ! -d $output_path ];then
+			echo "Error!The value of option o must be an exist directory."
+			exit 2
+		fi
+
+        ;;
+	  "w")
+		workspace_name='*.xcworkspace'
+		ls $project_path/$workspace_name &>/dev/null
+		rtnValue=$?
+		if [ $rtnValue = 0 ];then
+			build_workspace=$(echo $(basename $project_path/$workspace_name))
+		else
+			echo  "Error!Current path is not a xcode workspace.Please check, or do not use -w option."
+			exit 2
+		fi
+		
+        ;;
+	  "s")
+		tmp_optind=$OPTIND
+		tmp_optname=$optname
+		tmp_optarg=$OPTARG
+
+		OPTIND=$OPTIND-1
+		if getopts $param_pattern optname ;then
+			echo  "Error argument value for option $tmp_optname"
+			exit 2
+		fi
+		OPTIND=$tmp_optind
+
+		build_scheme=$tmp_optarg
+		
+        ;;
+	  "t")
+		tmp_optind=$OPTIND
+		tmp_optname=$optname
+		tmp_optarg=$OPTARG
+
+		OPTIND=$OPTIND-1
+		if getopts $param_pattern optname ;then
+			echo  "Error argument value for option $tmp_optname"
+			exit 2
+		fi
+		OPTIND=$tmp_optind
+
+		build_target=$tmp_optarg
+		
+        ;;
+
+
+      "?")
+        echo "Error! Unknown option $OPTARG"
+		exit 2
+        ;;
+      ":")
+        echo "Error! No argument value for option $OPTARG"
+		exit 2
+        ;;
+      *)
+      # Should not occur
+        echo "Error! Unknown error while processing options"
+		exit 2
+        ;;
+    esac
+  done
+
+
+#build文件夹路径
+build_path=${project_path}/build
+#生成的app文件目录
+appdirname=Release-iphoneos
+if [ $build_config = Debug ];then
+	appdirname=Debug-iphoneos
+fi
+if [ $build_config = Distribute ];then
+	appdirname=Distribute-iphoneos
+fi
+#编译后文件路径(仅当编译workspace时才会用到)
+compiled_path=${build_path}/${appdirname}
+
+#是否clean
+if [ "$should_clean" = "y" ];then
+	xcodebuild clean -configuration ${build_config}
+fi
+
+
+#组合编译命令
+build_cmd='xcodebuild'
+
+if [ "$build_workspace" != "" ];then
+	#编译workspace
+	if [ "$build_scheme" = "" ];then
+		echo "Error! Must provide a scheme by -s option together when using -w option to compile a workspace."
+		exit 2
+	fi
+	
+	build_cmd=${build_cmd}' -workspace '${build_workspace}' -scheme '${build_scheme}' -configuration '${build_config}' CONFIGURATION_BUILD_DIR='${compiled_path}' ONLY_ACTIVE_ARCH=NO'
+
+else
+	#编译project
+	build_cmd=${build_cmd}' -configuration '${build_config}
+
+	if [ "$build_target" != "" ];then
+	build_cmd=${build_cmd}' -target '${build_target}
+	fi
+	
+fi
+
+
+#编译工程
+cd $project_path
+$build_cmd || exit
+
+#进入build路径
+cd $build_path
+
+libname=$(basename ./${appdirname}/*.a)
+
+echo ${build_path}
+if [ "$output_path" != "" ];then
+	cp ${build_path}/${appdirname}/${libname} $output_path/
+	echo "Copy lib file successfully to the path $output_path"
+fi
